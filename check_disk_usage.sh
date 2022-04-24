@@ -8,6 +8,8 @@ else
 fi
 
 echo -e "The heaviest subfolder of $dir is:"
-top1=$(du -S $dir | sort -rn | head -n 1 | awk '{print $2 "\n"}')
-disk=$(du -h $top1 | awk '{print $1}')
+top1=$(du -S $dir 2>/dev/null | sort -rn | head -n 1 | cut -f2)
+disk=$(du -Sh -d 0 $top1 2>/dev/null | sort -rn | head -n 1 | cut -f1)
 echo -e "$top1 with disk usage of $disk"
+
+#echo "The heaviest subfolder of $dir is $top1" | festival -tts
